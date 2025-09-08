@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 /**
@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
  */
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -29,12 +30,21 @@ export default function Login() {
     // await new Promise((r) => setTimeout(r, 700));
     // alert("Login success!\n" + JSON.stringify(data, null, 2));
 
-    const res = await axios.post("http://localhost:5000/api/auth/login", data);
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        data
+      );
 
-    if (res.data) {
-      return toast.success("Login successful 🎉");
+      if (res.data) {
+        toast.success("Login successful 🎉");
+        navigate("/reel");
+      }
+    } catch (error) {
+      toast.error("Something is wrong 🎉");
     }
-    reset();
+
+    // reset();
   };
 
   return (

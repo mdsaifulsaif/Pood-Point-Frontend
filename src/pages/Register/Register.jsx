@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 /**
@@ -43,10 +44,10 @@ export default function Register() {
       "http://localhost:5000/api/auth/register",
       data
     );
-    if (res) {
-      console.log("sccess");
+    if (res.data) {
+      return toast.success("Account created successful 🎉");
     }
-
+    reset();
     // reset();
   };
 
