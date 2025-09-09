@@ -5,10 +5,13 @@ import { RouterProvider } from "react-router";
 import { router } from "./routes/AppRouter.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ContextProvider from "./ContextApis/ContextProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
-    <ToastContainer position="top-right" autoClose={3000} />
+    <ContextProvider>
+      <RouterProvider router={router} />
+      <ToastContainer position="top-right" autoClose={3000} />
+    </ContextProvider>
   </StrictMode>
 );

@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ReelLayout from "../Layouts/ReelLayout";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -26,7 +27,12 @@ export const router = createBrowserRouter([
   },
   {
     path: "/reel",
-    Component: ReelLayout,
     children: [{ index: true, Component: ReelLayout }],
+    // Component: ReelLayout,
+    element: (
+      <ProtectedRoute>
+        <ReelLayout />
+      </ProtectedRoute>
+    ),
   },
 ]);

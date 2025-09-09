@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../ContextApis/ContextProvider";
 
 /**
  * LoginForm.jsx
@@ -11,6 +12,7 @@ import { toast } from "react-toastify";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = use(AuthContext);
 
   const {
     register,
@@ -33,12 +35,14 @@ export default function Login() {
     try {
       const res = await axios.post(
         "http://localhost:5000/api/auth/login",
-        data
+        data,
+        { withCredentials: true } // for cookei
       );
 
       if (res.data) {
         toast.success("Login successful 🎉");
         navigate("/reel");
+        setUser(res.data.user); //  instantly context update
       }
     } catch (error) {
       toast.error("Something is wrong 🎉");
