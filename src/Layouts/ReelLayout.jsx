@@ -14,8 +14,8 @@ import { use } from "react";
 import { AuthContext } from "../ContextApis/ContextProvider";
 
 export default function ReelLayout() {
-  const loggetUser = use(AuthContext);
-  console.log("current user", loggetUser);
+  const { user } = use(AuthContext);
+  console.log("current user from layout", user);
   return (
     <section className="h-full overflow-hidden">
       <div className="bg-gray-500 min-h-screen flex">

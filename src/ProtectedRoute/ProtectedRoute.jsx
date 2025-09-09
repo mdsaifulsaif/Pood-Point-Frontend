@@ -1,38 +1,20 @@
-import React, { use } from "react";
-import { useNavigate } from "react-router";
+import React, { useContext } from "react";
+import { Navigate } from "react-router";
 import { AuthContext } from "../ContextApis/ContextProvider";
+import LoadingPage from "../components/LoadingPage";
 
 function ProtectedRoute({ children }) {
-  const navigate = useNavigate();
-  const { user, loading } = use(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
   if (loading) {
-    return <p>Checking authentication...</p>;
+    return <LoadingPage />;
   }
 
   if (!user) {
-    return navigate("/login");
+    return <Navigate to="/login" replace />;
   }
-  return <ProtectedRoute>{children}</ProtectedRoute>;
+
+  return children;
 }
 
 export default ProtectedRoute;
-
-// import { useContext } from "react";
-// import { Navigate, Outlet } from "react-router-dom";
-// import { AuthContext } from "./ContextProvider";
-// import { useNavigate } from 'react-router';
-
-// export default function ProtectedRoute() {
-//   const { user, loading } = useContext(AuthContext);
-
-//   if (loading) {
-//     return <p>Checking authentication...</p>; // spinner / loader dite পারো
-//   }
-
-//   if (!user) {
-//     return <Navigate to="/login" replace />;
-//   }
-
-//   return <Outlet />; // protected content render হবে
-// }

@@ -41,8 +41,8 @@ export default function Login() {
 
       if (res.data) {
         toast.success("Login successful 🎉");
-        navigate("/reel");
         setUser(res.data.user); //  instantly context update
+        navigate("/reel");
       }
     } catch (error) {
       toast.error("Something is wrong 🎉");
