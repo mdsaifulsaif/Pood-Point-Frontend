@@ -52,7 +52,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen mt-[55px] bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-xl">
         <div className="bg-white shadow-xl rounded-2xl p-8">
           <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900">

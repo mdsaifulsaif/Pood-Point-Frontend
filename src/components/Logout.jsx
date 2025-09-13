@@ -2,6 +2,8 @@ import axios from "axios";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../ContextApis/ContextProvider";
+import { toast } from "react-toastify";
+import { FaSignOutAlt } from "react-icons/fa";
 
 function Logout() {
   const { setUser } = useContext(AuthContext);
@@ -15,7 +17,7 @@ function Logout() {
 
       if (res.data) {
         setUser(null); //
-        alert("Logout successful ✅");
+        toast.success("Logout successful 🎉");
         navigate("/home");
       }
     } catch (error) {
@@ -24,7 +26,16 @@ function Logout() {
     }
   };
 
-  return <div onClick={handleLogout}>Logout</div>;
+  // return <div onClick={handleLogout}>Logout</div>;
+
+  return (
+    <button
+      onClick={handleLogout}
+      className="flex items-center gap-3 text-red-600 mt-6"
+    >
+      <FaSignOutAlt /> Logout
+    </button>
+  );
 }
 
 export default Logout;

@@ -1,75 +1,85 @@
-import React from "react";
 import { FaStar } from "react-icons/fa";
-import { HiArrowUpRight } from "react-icons/hi2";
+import { FiArrowRight } from "react-icons/fi";
 
-function Banner() {
+export default function Banner() {
   return (
-    <section className="bg-pink-100 h-screen py-12">
-      <div className="grid  md:grid-cols-2 items-center max-w-6xl mx-auto gap-8 px-6 md:px-16">
-        {/* Left Section */}
-        <div className="space-y-6 text-center md:text-left">
-          <h2 className="text-lg font-semibold text-gray-700">20M+ Users</h2>
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-black">
-            Food Pont
-          </h1>
-          <p className="text-gray-700 text-base sm:text-lg">
-            Engage viewers, boost sales, and leverage user-generated content —
-            all 30X faster than YouTube.
-          </p>
-
-          {/* Rating */}
-          <div className="flex items-center justify-center md:justify-start gap-2 text-gray-700">
-            <span>📈</span>
-            <span>
-              Earn more up to <b>200%</b> /{" "}
-              <FaStar className="inline text-yellow-500" /> 4.9 Viewership
+    <section className="relative pt-[55px] bg-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        {/* LEFT CONTENT */}
+        <div>
+          {/* Trustpilot */}
+          <div className="flex items-center gap-2 mb-4">
+            <span className="flex text-green-600 text-lg">
+              <FaStar />
+              <FaStar />
+              <FaStar />
+              <FaStar />
+              <FaStar />
             </span>
+            <span className="text-gray-600">4.7 on TrustPilot</span>
           </div>
 
+          {/* Heading */}
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
+            Boost your conversions instantly
+          </h1>
+
+          {/* Description */}
+          <p className="text-lg text-gray-600 mb-6">
+            Packed with lightning-fast Shoppable videos, interactive video
+            quizzes, live-stream shopping & more — All 3x faster than YouTube.
+          </p>
+
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
-            <button className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition">
-              Download — It’s Free
+          <div className="flex flex-wrap gap-4">
+            <button className="px-6 py-3 rounded-full bg-black text-white font-medium hover:bg-gray-900 transition">
+              Get Started — For Free
             </button>
-            <button className="flex items-center gap-2 bg-white border px-6 py-3 rounded-full hover:bg-gray-100 transition">
-              Our Pricing <HiArrowUpRight />
+            <button className="px-6 py-3 rounded-full border border-gray-400 font-medium hover:bg-gray-100 transition">
+              Book A Demo
             </button>
           </div>
         </div>
 
-        {/* Right Section (Reel Image) */}
-        <div className="flex justify-center">
-          <div className="relative w-[70%] sm:w-64 md:w-80 lg:w-60 aspect-[9/16] rounded-2xl overflow-hidden shadow-xl">
+        {/* RIGHT CONTENT */}
+        <div className="relative flex justify-center">
+          {/* Main Hero Image */}
+          <div className="w-[260px] h-[460px] rounded-3xl overflow-hidden shadow-lg relative">
             <img
-              src="https://i.ibb.co/YT1wNN5g/Untitled-design-58.png"
-              alt="Reel"
+              src="https://via.placeholder.com/260x460.png"
+              alt="Hero"
               className="w-full h-full object-cover"
             />
+          </div>
 
-            {/* Optional Play Button */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <button className="bg-white bg-opacity-70 hover:bg-opacity-90 text-black p-4 rounded-full shadow-lg transition">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-10 w-10"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M14.752 11.168l-6.518-3.759A1 1 0 007 8.29v7.42a1 1 0 001.234.97l6.518-3.758a1 1 0 000-1.72z"
-                  />
-                </svg>
-              </button>
-            </div>
+          {/* Floating card - Add to Cart */}
+          <div className="absolute top-6 -left-16 bg-white rounded-2xl shadow-lg px-4 py-3 w-36">
+            <img
+              src="https://via.placeholder.com/100"
+              alt="Hot Sale"
+              className="rounded-lg mb-2"
+            />
+            <button className="text-sm w-full py-1 bg-black text-white rounded-lg hover:bg-gray-900">
+              Add to cart
+            </button>
+          </div>
+
+          {/* Floating card - Product details */}
+          <div className="absolute bottom-6 -left-20 bg-white rounded-2xl shadow-lg px-4 py-3 w-40">
+            <p className="text-xs text-gray-600">SANDIE Backless Maxi Dress</p>
+            <p className="text-sm font-semibold">$48.99</p>
+            <button className="text-xs text-black flex items-center gap-1 mt-1 hover:text-gray-600">
+              Shop Now <FiArrowRight />
+            </button>
+          </div>
+
+          {/* Floating Stat */}
+          <div className="absolute top-10 -right-16 bg-green-100 text-green-800 rounded-xl px-4 py-3 shadow">
+            <p className="text-xl font-bold">20X</p>
+            <p className="text-xs">Jump in sales</p>
           </div>
         </div>
       </div>
     </section>
   );
 }
-
-export default Banner;
