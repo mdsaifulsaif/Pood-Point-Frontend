@@ -5,12 +5,9 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ReelLayout from "../Layouts/ReelLayout";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import FoodPRegister from "../FoodPartnerAuth/Register/FoodPRegister";
-import FoodLogin from "../FoodPartnerAuth/Login/FoodLogin";
-import UserDashboardLayout from "../Layouts/UserDashboard/UserdashboardLyaout";
 import Reels from "../components/Reels";
-import FoodPostForm from "../Layouts/UserDashboard/FoodPostForm";
-import About from "../pages/About/About";
+import CreateReel from "../pages/CreateReel/CreateReel";
+import Profile from "../pages/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -29,54 +26,35 @@ export const router = createBrowserRouter([
         path: "/register",
         Component: Register,
       },
+    ],
+  },
+  {
+    path: "/reels",
+    element: (
+      <ProtectedRoute>
+        <ReelLayout />
+      </ProtectedRoute>
+    ),
+    children: [
       {
-        path: "/reels",
-        element: <ReelLayout />,
+        index: true,
+        Component: Reels,
       },
       {
-        path: "/about",
-        Component: About,
-      },
-      {
-        path: "/partner/register",
+        path: "/reels/create-reel",
         element: (
           <ProtectedRoute>
-            <FoodPRegister />
+            <CreateReel />
           </ProtectedRoute>
         ),
       },
       {
-        path: "/partner/login",
-        element: <FoodLogin />,
-      },
-    ],
-  },
-  // {
-  //   path: "/reel",
-  //   children: [
-  //     {
-  //       index: true,
-  //       Component: ReelLayout,
-  //     },
-  //     {
-  //       path: "/reel/videos",
-  //       element: <Reels />,
-  //     },
-  //   ],
-  //   // Component: ReelLayout,
-  //   element: (
-  //     <ProtectedRoute>
-  //       <ReelLayout />
-  //     </ProtectedRoute>
-  //   ),
-  // },
-  {
-    path: "/dashboard",
-    element: <UserDashboardLayout />,
-    children: [
-      {
-        path: "/dashboard/addfooditem",
-        element: <FoodPostForm />,
+        path: "/reels/profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

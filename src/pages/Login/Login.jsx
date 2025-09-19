@@ -42,7 +42,7 @@ export default function Login() {
       if (res.data) {
         toast.success("Login successful 🎉");
         setUser(res.data.user); //  instantly context update
-        navigate("/reel");
+        navigate("/reels");
       }
     } catch (error) {
       toast.error("Something is wrong 🎉");

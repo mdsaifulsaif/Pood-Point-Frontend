@@ -3,8 +3,11 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import { use } from "react";
+import { AuthContext } from "../../ContextApis/ContextProvider";
 
 export default function FoodLogin() {
+  const { partner, setPartner } = use(AuthContext);
   const {
     register,
     handleSubmit,
@@ -24,6 +27,7 @@ export default function FoodLogin() {
       );
 
       if (res.data) {
+        setPartner(res.data.foodPartner);
         toast.success("Login successful 🎉");
         navigate("/dashboard/addfooditem");
       }

@@ -1,18 +1,21 @@
 import React from "react";
-import { Link, Outlet } from "react-router";
+import { Outlet } from "react-router";
+import { Link } from "react-router";
 import Reels from "../components/Reels";
-
-// Instagram-like web feed component
-// TailwindCSS required in the project
-// Usage: import InstagramFeed from './InstagramFeed';
+import MobileNavbar from "../components/MobileNavbar";
 
 export default function ReelLayout() {
   return (
-    <div className="w-full md:max-w-6xl md:mx-auto relative">
-      {/* Grid: left sidebar | center feed | right sidebar */}
-      <div className="flex gap-6">
-        {/* Left sidebar (fixed) */}
-        <aside className="hidden md:block mt-[55px] w-60 fixed left-20 top-0 h-screen overflow-y-auto border-r bg-gray-50 px-4 py-6">
+    <div className="relative md:max-w-6xl z-10 mx-auto ">
+      {/* Left sidebar */}
+      <aside className="hidden md:block fixed  h-screen left-1/2 -translate-x-[36rem] w-90 h-[calc(100vh-55px)] border-r bg-gray-50 p-4 overflow-y-auto">
+        <div className="space-y-4">
+          <h2 className="font-semibold text-gray-700">Left Sidebar</h2>
+          {/* <ul className="space-y-2 text-sm">
+            <li>Profile</li>
+            <li>Messages</li>
+            <li>Settings</li>
+          </ul> */}
           <div className="space-y-4">
             <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-100 transition">
               <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
@@ -21,6 +24,27 @@ export default function ReelLayout() {
               <div>
                 <div className="font-semibold">Md. Saiful</div>
                 <div className="text-sm text-gray-500">View profile</div>
+              </div>
+            </div>
+
+            <div className="p-4 md:hidden rounded-xl bg-white shadow-sm">
+              <h4 className="text-sm font-medium text-gray-700">Create</h4>
+              <p className="text-xs text-gray-500 mt-2">
+                Quick actions for new posts or reels.
+              </p>
+              <div className="mt-3 flex gap-2">
+                <Link
+                  to="/reels/create-reel"
+                  className="px-3 py-2 rounded-lg border"
+                >
+                  Post
+                </Link>
+                <Link
+                  to="/reels/create-reel"
+                  className="px-3 py-2 rounded-lg text-red-600 border"
+                >
+                  Reel
+                </Link>
               </div>
             </div>
 
@@ -58,22 +82,30 @@ export default function ReelLayout() {
               © {new Date().getFullYear()} YourApp • About • Help • Press
             </div>
           </div>
-        </aside>
+        </div>
+      </aside>
 
-        {/* Center feed (reels) */}
-        <main className="flex-1 mt-[55px] min-h-screen md:mx-64 md:mr-72 px-4">
-          <div className="flex flex-col items-center justify-center gap-6 py-6">
-            {/* <Outlet /> */}
-            <Reels />
+      {/* Main feed */}
+      <main className="min-h-screen z-20 px-4 ">
+        <div className="flex flex-col items-center gap-6 ">
+          {/* <Outlet /> */}
+          <Outlet />
+          <div className="text-gray-500 text-sm py-6">End of feed</div>
+        </div>
+        <div className="md:hidden">
+          <MobileNavbar />
+        </div>
+      </main>
 
-            <div className="text-center text-sm text-gray-500 py-6">
-              End of feed
-            </div>
-          </div>
-        </main>
-
-        {/* Right sidebar (fixed) */}
-        <aside className="hidden md:block mt-[55px] w-72 fixed right-20 top-0 h-screen overflow-y-auto border-l bg-gray-50 px-4 py-6">
+      {/* Right sidebar */}
+      <aside className="hidden md:block fixed h-screen top-0 right-1/2 translate-x-[36rem] w-90 h-[calc(100vh-55px)] border-l bg-gray-50 p-4 overflow-y-auto">
+        <div className="space-y-4">
+          <h2 className="font-semibold text-gray-700">Right Sidebar</h2>
+          {/* <ul className="space-y-2 text-sm">
+            <li>Trends</li>
+            <li>Suggestions</li>
+            <li>Links</li>
+          </ul> */}
           <div className="space-y-4">
             <div className="p-4 rounded-xl bg-white shadow-sm">
               <h4 className="text-sm font-medium text-gray-700">Create</h4>
@@ -85,7 +117,7 @@ export default function ReelLayout() {
                   Post
                 </Link>
                 <Link
-                  to="/dashboard/addfooditem"
+                  to="/reels/create-reel"
                   className="px-3 py-2 rounded-lg border"
                 >
                   Reel
@@ -102,8 +134,8 @@ export default function ReelLayout() {
               </ul>
             </div>
           </div>
-        </aside>
-      </div>
+        </div>
+      </aside>
     </div>
   );
 }

@@ -7,8 +7,19 @@ import {
   FaUserPlus,
 } from "react-icons/fa";
 import PartnerButton from "./PartnerButton";
+import { use } from "react";
+import { AuthContext } from "../ContextApis/ContextProvider";
+import Logout from "./Logout";
+import { FoodPartnerContext } from "../ContextApis/foodPartnerContext";
 
 export default function Navbar() {
+  const { user, partner } = use(AuthContext);
+
+  console.log("current user", user);
+  // console.log("current partner", partner);
+  // const { partner } = use(FoodPartnerContext);
+  // console.log("partner", partner);
+
   return (
     <header className="w-full bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
@@ -42,18 +53,25 @@ export default function Navbar() {
           >
             <FaShoppingBag /> Shop
           </Link>
-          <Link
-            to="/login"
-            className="flex items-center gap-1 hover:text-emerald-600"
-          >
-            <FaSignInAlt /> Login
-          </Link>
-          <Link
-            to="/register"
-            className="flex items-center gap-1 hover:text-emerald-600"
-          >
-            <FaUserPlus /> Register
-          </Link>
+          {user ? (
+            <Logout />
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="flex items-center gap-1 hover:text-emerald-600"
+              >
+                <FaSignInAlt /> Login
+              </Link>
+              <Link
+                to="/register"
+                className="flex items-center gap-1 hover:text-emerald-600"
+              >
+                <FaUserPlus /> Register
+              </Link>
+            </>
+          )}
+
           <PartnerButton />
         </nav>
       </div>

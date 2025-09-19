@@ -46,14 +46,14 @@ export default function Banner() {
           {/* Main Hero Image */}
           <div className="w-[260px] h-[460px] rounded-3xl overflow-hidden shadow-lg relative">
             <img
-              src="https://via.placeholder.com/260x460.png"
+              src="https://i.ibb.co.com/YT1wNN5g/Untitled-design-58.png"
               alt="Hero"
               className="w-full h-full object-cover"
             />
           </div>
 
           {/* Floating card - Add to Cart */}
-          <div className="absolute top-6 -left-16 bg-white rounded-2xl shadow-lg px-4 py-3 w-36">
+          <div className="absolute top-6 left-16 bg-white rounded-2xl shadow-lg px-4 py-3 w-36">
             <img
               src="https://via.placeholder.com/100"
               alt="Hot Sale"
@@ -65,7 +65,7 @@ export default function Banner() {
           </div>
 
           {/* Floating card - Product details */}
-          <div className="absolute bottom-6 -left-20 bg-white rounded-2xl shadow-lg px-4 py-3 w-40">
+          <div className="absolute bottom-6 left-20 bg-white rounded-2xl shadow-lg px-4 py-3 w-40">
             <p className="text-xs text-gray-600">SANDIE Backless Maxi Dress</p>
             <p className="text-sm font-semibold">$48.99</p>
             <button className="text-xs text-black flex items-center gap-1 mt-1 hover:text-gray-600">
@@ -74,7 +74,7 @@ export default function Banner() {
           </div>
 
           {/* Floating Stat */}
-          <div className="absolute top-10 -right-16 bg-green-100 text-green-800 rounded-xl px-4 py-3 shadow">
+          <div className="absolute top-10 right-16 bg-green-100 text-green-800 rounded-xl px-4 py-3 shadow">
             <p className="text-xl font-bold">20X</p>
             <p className="text-xs">Jump in sales</p>
           </div>

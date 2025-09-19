@@ -31,7 +31,7 @@ function Logout() {
   return (
     <button
       onClick={handleLogout}
-      className="flex items-center gap-3 text-red-600 mt-6"
+      className=" flex  items-center justify-center gap-3 text-red-600 mt-6"
     >
       <FaSignOutAlt /> Logout
     </button>

@@ -6,8 +6,13 @@ import {
   FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { use } from "react";
+import { AuthContext } from "../../ContextApis/ContextProvider";
 
 export default function UserDashboardLayout() {
+  const { partner, user } = use(AuthContext);
+  console.log("partner data", partner);
+  console.log(user);
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}

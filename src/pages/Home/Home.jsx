@@ -10,7 +10,6 @@ function Home() {
       <Banner />
       <PartnersMarquee />
       <StatsSection />
-      <Reels />
     </div>
   );
 }
