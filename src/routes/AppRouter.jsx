@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/reels/profile",
+        path: "/reels/profile/:id",
         element: (
           <ProtectedRoute>
             <Profile />

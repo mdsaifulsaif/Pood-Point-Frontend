@@ -10,7 +10,7 @@ import PartnerButton from "./PartnerButton";
 import { use } from "react";
 import { AuthContext } from "../ContextApis/ContextProvider";
 import Logout from "./Logout";
-import { FoodPartnerContext } from "../ContextApis/foodPartnerContext";
+// import { FoodPartnerContext } from "../ContextApis/foodPartnerContext";
 
 export default function Navbar() {
   const { user, partner } = use(AuthContext);

@@ -22,16 +22,13 @@ function Logout() {
       }
     } catch (error) {
       console.error("Logout error:", error);
-      // alert("Logout failed ❌");
     }
   };
-
-  // return <div onClick={handleLogout}>Logout</div>;
 
   return (
     <button
       onClick={handleLogout}
-      className=" flex  items-center justify-center gap-3 text-red-600 mt-6"
+      className=" flex cursor-pointer  items-center justify-center gap-3 text-red-600 "
     >
       <FaSignOutAlt /> Logout
     </button>
