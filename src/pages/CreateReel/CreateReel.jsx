@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const CreateReel = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name || !description || !video) {
-      alert("Please fill all fields!");
+      toast.error("Please fill all fields!");
       return;
     }
 
@@ -29,7 +32,8 @@ const CreateReel = () => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      alert(res.data.message);
+      toast.success("Reel added successful");
+      navigate("/reels");
       setName("");
       setDescription("");
       setVideo(null);

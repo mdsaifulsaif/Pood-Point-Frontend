@@ -1,7 +1,7 @@
 import React, { use } from "react";
 import { Outlet } from "react-router";
 import { Link } from "react-router";
-import Reels from "../components/Reels";
+import { FaUser } from "react-icons/fa";
 import MobileNavbar from "../components/MobileNavbar";
 import { AuthContext } from "../ContextApis/ContextProvider";
 import Logout from "../components/Logout";
@@ -14,7 +14,7 @@ export default function ReelLayout() {
       {/* Left sidebar */}
       <aside className="hidden md:block fixed  h-screen left-1/2 -translate-x-[36rem] w-90 h-[calc(100vh-55px)] border-r bg-gray-50 p-4 overflow-y-auto">
         <div className="space-y-4">
-          <h2 className="font-semibold text-gray-700">Left Sidebar</h2>
+          {/* <h2 className="font-semibold text-gray-700">Left Sidebar</h2> */}
           {/* <ul className="space-y-2 text-sm">
             <li>Profile</li>
             <li>Messages</li>
@@ -23,33 +23,41 @@ export default function ReelLayout() {
           <div className="space-y-4">
             <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-100 transition">
               <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                S
+                <FaUser size={20} />
               </div>
-              <div>
-                <div className="font-semibold">Md. Saiful</div>
-                <div className="text-sm text-gray-500">View profile</div>
-              </div>
+              <Link to={`/reels/profile/${user._id}`}>
+                <div>
+                  <div className="font-semibold">{user.fullName}</div>
+                  <div className="text-sm text-gray-500">View profile</div>
+                </div>
+              </Link>
             </div>
 
             <div className="p-4 rounded-xl  bg-white shadow-sm flex flex-col gap-3">
               <Link
                 to="/reels"
-                className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
+                className="px-4 text-center py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
               >
                 Home
               </Link>
               <Link
                 to={`/reels/profile/${user._id}`}
-                className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
+                className="px-4 text-center py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
               >
                 Profile
               </Link>
-              <button className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium">
-                Reels
-              </button>
-              <button className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium">
-                Post
-              </button>
+              <Link
+                to="/reels/create-reel"
+                className="px-4 text-center py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
+              >
+                Create Reels
+              </Link>
+              <Link
+                to="/reels/create-post"
+                className="px-4 text-center py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
+              >
+                Create Post
+              </Link>
             </div>
 
             <div className="p-4 md:hidden rounded-xl bg-white shadow-sm">
@@ -59,16 +67,16 @@ export default function ReelLayout() {
               </p>
               <div className="mt-3 flex gap-2">
                 <Link
-                  to={`/reels/create-reel/`}
+                  to={`/reels/create-post`}
                   className="px-3 py-2 rounded-lg border"
                 >
-                  Post
+                  Create Post
                 </Link>
                 <Link
                   to="/reels/create-reel"
                   className="px-3 py-2 rounded-lg text-red-600 border"
                 >
-                  Reel
+                  Create Reel
                 </Link>
               </div>
             </div>
@@ -129,7 +137,7 @@ export default function ReelLayout() {
       {/* Right sidebar */}
       <aside className="hidden md:block fixed h-screen top-0 right-1/2 translate-x-[36rem] w-90 h-[calc(100vh-55px)] border-l bg-gray-50 p-4 overflow-y-auto">
         <div className="space-y-4">
-          <h2 className="font-semibold text-gray-700">Right Sidebar</h2>
+          {/* <h2 className="font-semibold text-gray-700">Right Sidebar</h2> */}
           {/* <ul className="space-y-2 text-sm">
             <li>Trends</li>
             <li>Suggestions</li>
@@ -142,14 +150,17 @@ export default function ReelLayout() {
                 Quick actions for new posts or reels.
               </p>
               <div className="mt-3 flex gap-2">
-                <Link to="" className="px-3 py-2 rounded-lg border">
-                  Post
+                <Link
+                  to="/reels/create-post"
+                  className="px-3 py-2 rounded-lg border"
+                >
+                  Create Post
                 </Link>
                 <Link
                   to="/reels/create-reel"
                   className="px-3 py-2 rounded-lg border"
                 >
-                  Reel
+                  Create Reel
                 </Link>
               </div>
             </div>

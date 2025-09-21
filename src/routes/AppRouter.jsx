@@ -8,6 +8,9 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Reels from "../components/Reels";
 import CreateReel from "../pages/CreateReel/CreateReel";
 import Profile from "../pages/Profile/Profile";
+import CreatePost from "../pages/CreatePost/CreatePost";
+import Banner from "../components/Banner";
+import LoginBanner from "../pages/Banner/LoginBanner";
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +19,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Home,
+        Component: Login,
       },
       {
         path: "/login",
@@ -45,6 +48,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <CreateReel />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/reels/create-post",
+        element: (
+          <ProtectedRoute>
+            <CreatePost />
           </ProtectedRoute>
         ),
       },

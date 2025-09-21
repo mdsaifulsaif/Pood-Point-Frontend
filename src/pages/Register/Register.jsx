@@ -4,11 +4,6 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-/**
- * RegisterForm.jsx
- * Tech: React + TailwindCSS + react-hook-form
- * Drop this component anywhere and it will just work.
- */
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -22,14 +17,14 @@ export default function Register() {
     reset,
   } = useForm({
     defaultValues: {
-      name: "",
+      fullName: "",
       email: "",
       password: "",
       confirmPassword: "",
       phone: "",
       terms: false,
     },
-    mode: "onTouched", // validate on blur/touch for nicer UX
+    mode: "onTouched",
   });
 
   const passwordValue = watch("password");
@@ -37,22 +32,26 @@ export default function Register() {
   const onSubmit = async (data) => {
     // In real app, call your API here
     await new Promise((r) => setTimeout(r, 700));
-    alert("Registration success!\n" + JSON.stringify(data, null, 2));
 
     // Send a POST request
-    const res = await axios.post(
-      "http://localhost:5000/api/auth/register",
-      data
-    );
-    if (res.data) {
-      return toast.success("Account created successful 🎉");
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/register",
+        data
+      );
+      if (res.data) {
+        toast.success("Account created successful 🎉");
+        navigate("/login");
+      }
+      reset();
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
-    reset();
     // reset();
   };
 
   return (
-    <div className="min-h-screen mt-[55px] bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-xl">
         <div className="bg-white shadow-xl rounded-2xl p-8">
           <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900">
@@ -72,13 +71,13 @@ export default function Register() {
                 Full Name
               </label>
               <input
-                id="name"
+                id="fullName"
                 type="text"
                 placeholder="e.g., Md. Saiful Islam"
                 className={`mt-1 w-full rounded-xl border bg-white p-3 outline-none transition focus:ring-2 focus:ring-emerald-500/60 ${
                   errors.name ? "border-red-500" : "border-gray-300"
                 }`}
-                {...register("name", {
+                {...register("fullName", {
                   required: "Name is required",
                   minLength: {
                     value: 3,
@@ -125,7 +124,7 @@ export default function Register() {
             </div>
 
             {/* Phone */}
-            <div>
+            {/* <div>
               <label
                 className="block text-sm font-medium text-gray-700"
                 htmlFor="phone"
@@ -151,7 +150,7 @@ export default function Register() {
                   {errors.phone.message}
                 </p>
               )}
-            </div>
+            </div> */}
 
             {/* Password */}
             <div>
