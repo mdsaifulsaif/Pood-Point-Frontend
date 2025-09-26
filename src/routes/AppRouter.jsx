@@ -11,6 +11,8 @@ import Profile from "../pages/Profile/Profile";
 import CreatePost from "../pages/CreatePost/CreatePost";
 import Banner from "../components/Banner";
 import LoginBanner from "../pages/Banner/LoginBanner";
+import AllUsers from "../pages/All Users/AllUsers";
+import Comments from "../pages/Comments/Comments";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +66,22 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/reels/users",
+        element: (
+          <ProtectedRoute>
+            <AllUsers />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/reels/:reelId",
+        element: (
+          <ProtectedRoute>
+            <Comments />
           </ProtectedRoute>
         ),
       },

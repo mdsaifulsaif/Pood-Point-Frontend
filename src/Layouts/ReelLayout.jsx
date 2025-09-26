@@ -5,14 +5,15 @@ import { FaUser } from "react-icons/fa";
 import MobileNavbar from "../components/MobileNavbar";
 import { AuthContext } from "../ContextApis/ContextProvider";
 import Logout from "../components/Logout";
+import logo from "../assets/photos/logola.jpeg";
+import SuggestionPage from "../pages/SuggestionPage/SuggestionPage";
 
 export default function ReelLayout() {
   const { user } = use(AuthContext);
-  console.log(user);
   return (
     <div className="relative md:max-w-6xl z-10 mx-auto ">
       {/* Left sidebar */}
-      <aside className="hidden md:block fixed  h-screen left-1/2 -translate-x-[36rem] w-90 h-[calc(100vh-55px)] border-r bg-gray-50 p-4 overflow-y-auto">
+      <aside className="hidden md:block fixed  h-screen left-1/2 -translate-x-[36rem] w-90  border-r bg-gray-50 p-4 overflow-y-auto">
         <div className="space-y-4">
           {/* <h2 className="font-semibold text-gray-700">Left Sidebar</h2> */}
           {/* <ul className="space-y-2 text-sm">
@@ -21,18 +22,23 @@ export default function ReelLayout() {
             <li>Settings</li>
           </ul> */}
           <div className="space-y-4">
-            <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-100 transition">
-              <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                <FaUser size={20} />
+            <Link to={"/reels"}>
+              <div>
+                <img className="h-[100px]" src={logo} alt="" />
               </div>
-              <Link to={`/reels/profile/${user._id}`}>
+            </Link>
+            <Link to={`/reels/profile/${user._id}`}>
+              <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-100 transition">
+                <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
+                  <FaUser size={20} />
+                </div>
+
                 <div>
                   <div className="font-semibold">{user.fullName}</div>
                   <div className="text-sm text-gray-500">View profile</div>
                 </div>
-              </Link>
-            </div>
-
+              </div>
+            </Link>
             <div className="p-4 rounded-xl  bg-white shadow-sm flex flex-col gap-3">
               <Link
                 to="/reels"
@@ -81,42 +87,12 @@ export default function ReelLayout() {
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-white shadow-sm">
-              <h4 className="text-sm font-medium text-gray-700 mb-2">
-                Suggestions for you
-              </h4>
-              <ul className="space-y-3">
-                <li className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gray-200" />
-                    <div>
-                      <div className="text-sm font-medium">rana_dev</div>
-                      <div className="text-xs text-gray-400">
-                        New to Instagram
-                      </div>
-                    </div>
-                  </div>
-                  <button className="text-sm text-indigo-600">Follow</button>
-                </li>
-                <li className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gray-200" />
-                    <div>
-                      <div className="text-sm font-medium">mim_photo</div>
-                      <div className="text-xs text-gray-400">Suggested</div>
-                    </div>
-                  </div>
-                  <button className="text-sm text-indigo-600">Follow</button>
-                </li>
-              </ul>
-            </div>
-
             <div className="p-4 rounded-xl  bg-white shadow-sm flex items-center justify-center flex-col gap-3">
               <Logout />
             </div>
 
             <div className="text-xs text-gray-400">
-              © {new Date().getFullYear()} YourApp • About • Help • Press
+              © {new Date().getFullYear()} Clipzy • About • Help • Press
             </div>
           </div>
         </div>
@@ -127,7 +103,7 @@ export default function ReelLayout() {
         <div className="flex flex-col items-center gap-6 ">
           {/* <Outlet /> */}
           <Outlet />
-          <div className="text-gray-500 text-sm py-6">End of feed</div>
+          {/* <div className="text-gray-500 text-sm py-6">End of feed</div> */}
         </div>
         <div className="md:hidden">
           <MobileNavbar />
@@ -163,6 +139,10 @@ export default function ReelLayout() {
                   Create Reel
                 </Link>
               </div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-white shadow-sm">
+              <SuggestionPage />
             </div>
 
             <div className="p-4 rounded-xl bg-white shadow-sm">

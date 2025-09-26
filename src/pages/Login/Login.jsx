@@ -45,7 +45,7 @@ export default function Login() {
         navigate("/reels");
       }
     } catch (error) {
-      toast.error("Something is wrong 🎉");
+      toast.error(error.message);
     }
 
     // reset();

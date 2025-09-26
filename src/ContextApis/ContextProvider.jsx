@@ -4,7 +4,6 @@ export const AuthContext = createContext(null);
 
 function ContextProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [partner, setPartner] = useState(null); // 👈 নতুন স্টেট
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,22 +21,6 @@ function ContextProvider({ children }) {
         } else {
           setUser(null);
         }
-
-        // ফুড পার্টনার ডেটা ফেচ
-        const resPartner = await fetch(
-          "http://localhost:5000/api/auth/food-partner/me",
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-
-        if (resPartner.ok) {
-          const partnerData = await resPartner.json();
-          setPartner(partnerData || null);
-        } else {
-          setPartner(null);
-        }
       } catch (err) {
         console.error("AuthContext fetch error:", err);
         setUser(null);
@@ -51,9 +34,7 @@ function ContextProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user, setUser, partner, setPartner, loading }}
-    >
+    <AuthContext.Provider value={{ user, setUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

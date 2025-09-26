@@ -1,164 +1,41 @@
-// import React, { useEffect, useState, useRef } from "react";
-// import axios from "axios";
-// import { Link, useParams } from "react-router";
-// import LoadingPage from "./LoadingPage";
-// import { FaUser } from "react-icons/fa";
-
-// function Reels() {
-//   const [reels, setReels] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const videoRefs = useRef([]);
-
-//   useEffect(() => {
-//     const fetchReels = async () => {
-//       try {
-//         const res = await axios.get("http://localhost:5000/api/reel", {
-//           withCredentials: true,
-//         });
-//         setReels(res.data.reelItems);
-//         console.log("from reelpage", res.data.reelItems);
-//         setLoading(false);
-//       } catch (err) {
-//         console.log(err);
-//         setLoading(false);
-//       }
-//     };
-//     fetchReels();
-//   }, []);
-
-//   useEffect(() => {
-//     if (!reels.length) return;
-
-//     const observer = new IntersectionObserver(
-//       (entries) => {
-//         entries.forEach((entry) => {
-//           const video = entry.target;
-//           if (entry.isIntersecting) {
-//             video.play().catch(() => {});
-//           } else {
-//             video.pause();
-//           }
-//         });
-//       },
-//       { threshold: 0.6 }
-//     );
-
-//     videoRefs.current.forEach((video) => {
-//       if (video) observer.observe(video);
-//     });
-
-//     return () => {
-//       videoRefs.current.forEach((video) => {
-//         if (video) observer.unobserve(video);
-//       });
-//     };
-//   }, [reels]);
-
-//   // like api call
-
-//   async function likevideo(item) {
-//     const response = await axios.post(
-//       "http://localhost:5000/api/reel/like",
-//       { reelId: item }, // backend er sate match korbe
-//       { withCredentials: true }
-//     );
-
-//     console.log(response.data.like);
-//   }
-
-//   if (loading) return <LoadingPage />;
-//   if (!reels.length) return <p className="text-center mt-10">No videos</p>;
-
-//   return (
-//     <div className="flex flex-col gap-6">
-//       {reels.map((reel, index) => (
-//         <article
-//           key={reel._id}
-//           className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200"
-//         >
-//           {/* Header */}
-//           <header className="flex items-center gap-3 p-4">
-//             <Link to={`/reels/profile/${reel.createBy}`}>
-//               <div className="w-10 flex items-center justify-center h-10 rounded-full bg-gray-200">
-//                 <FaUser size={20} />
-//               </div>
-//             </Link>
-//             <div>
-//               <div className="font-semibold">{}</div>
-//               <div className="text-xs text-gray-400">Dhaka, Bangladesh</div>
-//             </div>
-//             <button className="ml-auto text-sm">•••</button>
-//           </header>
-
-//           {/* Video */}
-//           <div className="w-full md:w-[400px] aspect-[5/7] bg-black">
-//             <video
-//               ref={(el) => (videoRefs.current[index] = el)}
-//               src={reel.video}
-//               className="w-full h-full object-cover block"
-//               loop
-//               muted
-//               playsInline
-//             />
-//           </div>
-
-//           {/* Actions + Likes */}
-//           <div className="p-4">
-//             <div className="flex items-center gap-3">
-//               <div className="flex gap-3">
-//                 <button onClick={() => likevideo(reel._id)} className="text-lg">
-//                   ❤️
-//                 </button>
-//                 <button className="text-lg">💬</button>
-//                 <button className="text-lg">↗️</button>
-//               </div>
-//               <div className="ml-auto text-sm text-gray-500">
-//                 {reel.likeCount} likes
-//               </div>
-//             </div>
-
-//             {/* Caption */}
-//             <p className="mt-3 text-sm">
-//               <span className="font-semibold mr-2">{reel.name}</span>
-//               {reel.description}
-//             </p>
-
-//             {/* Comment box */}
-//             <div className="mt-3">
-//               <input
-//                 type="text"
-//                 placeholder="Add a comment..."
-//                 className="w-full border border-gray-200 rounded-full px-4 py-2 text-sm focus:outline-none"
-//               />
-//             </div>
-//           </div>
-//         </article>
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default Reels;
-
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router";
 import { FaUser } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { FaRegHeart, FaHeart, FaRegComment } from "react-icons/fa6";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import LoadingPage from "./LoadingPage";
+
+// custom hook to fetch comments for a reel
+function useComments(reelId) {
+  return useQuery({
+    queryKey: ["comments", reelId],
+    queryFn: async () => {
+      const res = await axios.get(
+        `http://localhost:5000/api/comment/${reelId}`,
+        { withCredentials: true }
+      );
+      // backend যদি সরাসরি array return করে
+      return Array.isArray(res.data) ? res.data : res.data.comments || [];
+    },
+    enabled: !!reelId, // only run when reelId exists
+  });
+}
 
 function Reels() {
   const videoRefs = useRef([]);
   const queryClient = useQueryClient();
+  const [openComments, setOpenComments] = useState(null);
 
-  // reels fetch
+  // fetch reels
   const { data, isLoading } = useQuery({
     queryKey: ["reels"],
     queryFn: async () => {
       const res = await axios.get("http://localhost:5000/api/reel", {
         withCredentials: true,
       });
-      return res.data.reelItems;
+      return res.data.reelItems || [];
     },
   });
 
@@ -173,8 +50,23 @@ function Reels() {
       return res.data;
     },
     onSuccess: () => {
-      // update cache after like
       queryClient.invalidateQueries(["reels"]);
+    },
+  });
+
+  // comment mutation
+  const commentMutation = useMutation({
+    mutationFn: async ({ reelId, text }) => {
+      const res = await axios.post(
+        `http://localhost:5000/api/comment`,
+        { reelId, comment: text },
+        { withCredentials: true }
+      );
+      toast.success("Comment added successfully");
+      return res.data;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries(["comments", variables.reelId]);
     },
   });
 
@@ -246,14 +138,31 @@ function Reels() {
           <div className="p-4">
             <div className="flex items-center gap-3">
               <div className="flex gap-3">
+                {/* Like button */}
                 <button
                   onClick={() => likeMutation.mutate(reel._id)}
-                  className="text-lg"
+                  className="text-xl"
                 >
-                  ❤️
+                  {reel.isLiked ? (
+                    <FaHeart className="text-red-500" />
+                  ) : (
+                    <FaRegHeart />
+                  )}
                 </button>
-                <button className="text-lg">💬</button>
-                <button className="text-lg">↗️</button>
+
+                {/* Comment toggle */}
+                <button
+                  onClick={() =>
+                    setOpenComments(openComments === reel._id ? null : reel._id)
+                  }
+                  className="text-xl"
+                >
+                  <FaRegComment />
+                </button>
+
+                <Link to={`/reels/${reel._id}`}>
+                  <button className="text-lg">↗See Comments</button>
+                </Link>
               </div>
               <div className="ml-auto text-sm text-gray-500">
                 {reel.likeCount} likes
@@ -266,18 +175,78 @@ function Reels() {
               {reel.description}
             </p>
 
-            {/* Comment box */}
-            <div className="mt-3">
-              <input
-                type="text"
-                placeholder="Add a comment..."
-                className="w-full border border-gray-200 rounded-full px-4 py-2 text-sm focus:outline-none"
-              />
-            </div>
+            {/* Inline comment section */}
+            {openComments === reel._id && (
+              <div className="mt-4 space-y-3">
+                <ReelComments
+                  reelId={reel._id}
+                  commentMutation={commentMutation}
+                />
+              </div>
+            )}
           </div>
         </article>
       ))}
     </div>
+  );
+}
+
+// ReelComments component
+function ReelComments({ reelId, commentMutation }) {
+  const { data: comments = [], isLoading } = useComments(reelId);
+
+  // Show only the latest comment initially
+  const latestComment = comments.length ? [comments[0]] : [];
+
+  if (isLoading) return <p className="text-sm">Loading comments...</p>;
+
+  return (
+    <>
+      {/* Latest comment */}
+      {latestComment.length > 0 && (
+        <div className="text-sm border-b pb-1">
+          <span className="font-semibold">
+            {latestComment[0].user?.fullName}:
+          </span>{" "}
+          {latestComment[0].comment}
+        </div>
+      )}
+
+      {/* All comments scrollable */}
+      {/* <div className="space-y-2 max-h-40 overflow-y-auto mt-2">
+        {comments.map((c) => (
+          <div key={c._id} className="text-sm border-b pb-1">
+            <span className="font-semibold">{c.user?.fullName}:</span>{" "}
+            {c.comment}
+          </div>
+        ))}
+      </div> */}
+
+      {/* Add comment */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const text = e.target.comment.value;
+          if (!text.trim()) return;
+          commentMutation.mutate({ reelId, text });
+          e.target.reset();
+        }}
+        className="flex gap-2 mt-2"
+      >
+        <input
+          type="text"
+          name="comment"
+          placeholder="Add a comment..."
+          className="flex-1 border border-gray-200 rounded-full px-3 py-1 text-sm focus:outline-none"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-3 rounded-full text-sm"
+        >
+          Post
+        </button>
+      </form>
+    </>
   );
 }
 

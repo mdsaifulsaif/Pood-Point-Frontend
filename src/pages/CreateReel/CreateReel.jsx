@@ -46,11 +46,11 @@ const CreateReel = () => {
   };
 
   return (
-    <div className="min-h-[87vh] flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-[87vh] mt-5 flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg p-8">
         {/* Heading */}
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-          Upload New Food Reel 🍴
+          Upload New Reel
         </h2>
 
         {/* Form */}
