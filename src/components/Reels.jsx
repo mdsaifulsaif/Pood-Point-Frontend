@@ -161,7 +161,9 @@ function Reels() {
                 </button>
 
                 <Link to={`/reels/${reel._id}`}>
-                  <button className="text-lg">↗See Comments</button>
+                  <button className="text-lg  cursor-pointer text-emerald-700 ">
+                    ↗See Comments
+                  </button>
                 </Link>
               </div>
               <div className="ml-auto text-sm text-gray-500">
@@ -198,29 +200,19 @@ function ReelComments({ reelId, commentMutation }) {
   // Show only the latest comment initially
   const latestComment = comments.length ? [comments[0]] : [];
 
-  if (isLoading) return <p className="text-sm">Loading comments...</p>;
+  if (isLoading) return LoadingPage;
 
   return (
     <>
       {/* Latest comment */}
       {latestComment.length > 0 && (
-        <div className="text-sm border-b pb-1">
+        <div className="text-sm  pb-1">
           <span className="font-semibold">
             {latestComment[0].user?.fullName}:
           </span>{" "}
-          {latestComment[0].comment}
+          <span>{latestComment[0].comment}</span>
         </div>
       )}
-
-      {/* All comments scrollable */}
-      {/* <div className="space-y-2 max-h-40 overflow-y-auto mt-2">
-        {comments.map((c) => (
-          <div key={c._id} className="text-sm border-b pb-1">
-            <span className="font-semibold">{c.user?.fullName}:</span>{" "}
-            {c.comment}
-          </div>
-        ))}
-      </div> */}
 
       {/* Add comment */}
       <form
@@ -241,9 +233,9 @@ function ReelComments({ reelId, commentMutation }) {
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white px-3 rounded-full text-sm"
+          className="bg-emerald-700 text-white px-3 rounded-full text-sm"
         >
-          Post
+          Comment
         </button>
       </form>
     </>

@@ -24,7 +24,9 @@ const Profile = () => {
         );
         // setReelsCreator(res.data.creator);
         setReels(res.data.userReels || []);
+        console.log(res.data.userReels);
         setReelsCreator(res.data.creator);
+        console.log(res.data.creator);
       } catch (err) {
       } finally {
         setLoading(false);
@@ -46,7 +48,7 @@ const Profile = () => {
     <div className="mx-auto w-full md:w-[400px] bg-white min-h-[90vh]">
       {/* Header */}
       <div className="flex justify-between items-center p-4 border-b">
-        <h2 className="text-xl font-bold">{reelsCreator.fullName}</h2>
+        <h2 className="text-xl font-bold">{reelsCreator?.fullName}</h2>
         <FaCog size={22} className="text-gray-700 cursor-pointer" />
       </div>
 
@@ -66,11 +68,11 @@ const Profile = () => {
             <p className="text-sm text-gray-600">Posts</p>
           </div>
           <div>
-            <p className="font-bold">120</p>
+            <p className="font-bold">{reelsCreator.followerCount}</p>
             <p className="text-sm text-gray-600">Followers</p>
           </div>
           <div>
-            <p className="font-bold">180</p>
+            <p className="font-bold">{reelsCreator.followingCount}</p>
             <p className="text-sm text-gray-600">Following</p>
           </div>
         </div>
