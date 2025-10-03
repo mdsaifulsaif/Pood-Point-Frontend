@@ -65,7 +65,7 @@ function Comments() {
         />
         <button
           type="submit"
-          className="text-emerald-700 font-semibold text-sm hover:opacity-80"
+          className="bg-emerald-700 text-white px-4 py-2 rounded-2xl font-semibold text-sm hover:opacity-80"
         >
           Comment
         </button>

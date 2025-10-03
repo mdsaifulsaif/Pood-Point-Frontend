@@ -39,7 +39,7 @@ const CreateReel = () => {
       setVideo(null);
     } catch (err) {
       console.error(err);
-      alert("Error uploading food");
+      toast.error("Error uploading reel");
     } finally {
       setLoading(false);
     }
@@ -57,11 +57,12 @@ const CreateReel = () => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Food Name
+              Reel Title
             </label>
             <input
               type="text"
-              placeholder="Enter food name"
+              placeholder="Enter reel title"
+              maxLength={20}
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
@@ -75,6 +76,7 @@ const CreateReel = () => {
             <textarea
               placeholder="Write a short description..."
               value={description}
+              maxLength={30}
               onChange={(e) => setDescription(e.target.value)}
               rows="3"
               className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition resize-none"

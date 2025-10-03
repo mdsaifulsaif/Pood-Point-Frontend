@@ -16,10 +16,9 @@ function useComments(reelId) {
         `http://localhost:5000/api/comment/${reelId}`,
         { withCredentials: true }
       );
-      // backend যদি সরাসরি array return করে
       return Array.isArray(res.data) ? res.data : res.data.comments || [];
     },
-    enabled: !!reelId, // only run when reelId exists
+    enabled: !!reelId,
   });
 }
 
@@ -35,6 +34,7 @@ function Reels() {
       const res = await axios.get("http://localhost:5000/api/reel", {
         withCredentials: true,
       });
+
       return res.data.reelItems || [];
     },
   });
@@ -116,7 +116,11 @@ function Reels() {
               </div>
             </Link>
             <div>
-              <div className="font-semibold">{reel.name}</div>
+              {/* <div className="font-semibold">
+                {reel.name?.length > 20
+                  ? reel.name.slice(0, 20) + "..."
+                  : reel.name}
+              </div> */}
               <div className="text-xs text-gray-400">Dhaka, Bangladesh</div>
             </div>
             <button className="ml-auto text-sm">•••</button>
@@ -143,7 +147,7 @@ function Reels() {
                   onClick={() => likeMutation.mutate(reel._id)}
                   className="text-xl"
                 >
-                  {reel.isLiked ? (
+                  {reel.isLike ? (
                     <FaHeart className="text-red-500" />
                   ) : (
                     <FaRegHeart />
@@ -161,7 +165,7 @@ function Reels() {
                 </button>
 
                 <Link to={`/reels/${reel._id}`}>
-                  <button className="text-lg  cursor-pointer text-emerald-700 ">
+                  <button className="text-lg cursor-pointer text-emerald-700 ">
                     ↗See Comments
                   </button>
                 </Link>
@@ -173,8 +177,14 @@ function Reels() {
 
             {/* Caption */}
             <p className="mt-3 text-sm">
-              <span className="font-semibold mr-2">{reel.name}</span>
-              {reel.description}
+              <span className="font-semibold mr-2">
+                {reel.name?.length > 20
+                  ? reel.name.slice(0, 40) + "..."
+                  : reel.name}
+              </span>
+              {reel.description?.length > 30
+                ? reel.description.slice(0, 40) + "..."
+                : reel.description}
             </p>
 
             {/* Inline comment section */}
@@ -197,16 +207,14 @@ function Reels() {
 function ReelComments({ reelId, commentMutation }) {
   const { data: comments = [], isLoading } = useComments(reelId);
 
-  // Show only the latest comment initially
   const latestComment = comments.length ? [comments[0]] : [];
 
-  if (isLoading) return LoadingPage;
+  if (isLoading) return <LoadingPage />;
 
   return (
     <>
-      {/* Latest comment */}
       {latestComment.length > 0 && (
-        <div className="text-sm  pb-1">
+        <div className="text-sm pb-1">
           <span className="font-semibold">
             {latestComment[0].user?.fullName}:
           </span>{" "}
