@@ -11,9 +11,12 @@ function Logout() {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/auth/logout", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://reels-app-server-200.onrender.com/api/auth/logout",
+        {
+          withCredentials: true,
+        }
+      );
 
       if (res.data) {
         setUser(null); //

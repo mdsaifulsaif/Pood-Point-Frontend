@@ -36,7 +36,7 @@ export default function Register() {
     // Send a POST request
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://reels-app-server-200.onrender.com/api/auth/register",
         data
       );
       if (res.data) {

@@ -18,7 +18,7 @@ export default function FoodLogin() {
   const onSubmit = async (data) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/food-partner/login",
+        "https://reels-app-server-200.onrender.com/api/auth/food-partner/login",
         {
           email: data.email,
           password: data.password,

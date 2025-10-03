@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import LoadingPage from "../../components/LoadingPage";
 
 export default function AllUsers({ currentUserId }) {
   const { data, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/api/users", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://reels-app-server-200.onrender.com/api/users",
+        {
+          withCredentials: true,
+        }
+      );
       return res.data.users;
     },
   });
@@ -27,7 +31,7 @@ export default function AllUsers({ currentUserId }) {
       if (isFollow === "false") {
         // follow request
         await axios.post(
-          `http://localhost:5000/api/follow/${targetId}`,
+          `https://reels-app-server-200.onrender.com/api/follow/${targetId}`,
           { userId: currentUserId },
           { withCredentials: true }
         );
@@ -46,7 +50,7 @@ export default function AllUsers({ currentUserId }) {
       } else {
         // unfollow request
         await axios.post(
-          `http://localhost:5000/api/unfollow/${targetId}`,
+          `https://reels-app-server-200.onrender.com/api/unfollow/${targetId}`,
           { userId: currentUserId },
           { withCredentials: true }
         );
@@ -68,7 +72,7 @@ export default function AllUsers({ currentUserId }) {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LoadingPage />;
 
   return (
     <div className="space-y-4 w-full py-5 md:w-[400px]">

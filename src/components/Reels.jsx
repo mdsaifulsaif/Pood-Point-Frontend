@@ -13,7 +13,7 @@ function useComments(reelId) {
     queryKey: ["comments", reelId],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/comment/${reelId}`,
+        `https://reels-app-server-200.onrender.com/api/comment/${reelId}`,
         { withCredentials: true }
       );
       return Array.isArray(res.data) ? res.data : res.data.comments || [];
@@ -31,9 +31,12 @@ function Reels() {
   const { data, isLoading } = useQuery({
     queryKey: ["reels"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/api/reel", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://reels-app-server-200.onrender.com/api/reel",
+        {
+          withCredentials: true,
+        }
+      );
 
       return res.data.reelItems || [];
     },
@@ -43,7 +46,7 @@ function Reels() {
   const likeMutation = useMutation({
     mutationFn: async (reelId) => {
       const res = await axios.post(
-        "http://localhost:5000/api/reel/like",
+        "https://reels-app-server-200.onrender.com/api/reel/like",
         { reelId },
         { withCredentials: true }
       );
@@ -58,7 +61,7 @@ function Reels() {
   const commentMutation = useMutation({
     mutationFn: async ({ reelId, text }) => {
       const res = await axios.post(
-        `http://localhost:5000/api/comment`,
+        `https://reels-app-server-200.onrender.com/api/comment`,
         { reelId, comment: text },
         { withCredentials: true }
       );

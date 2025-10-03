@@ -17,7 +17,7 @@ const Profile = () => {
     const fetchReels = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/reel/user-all-reels/${id}`,
+          `https://reels-app-server-200.onrender.com/api/reel/user-all-reels/${id}`,
           {
             withCredentials: true,
           }

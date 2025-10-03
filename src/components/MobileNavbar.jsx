@@ -1,25 +1,26 @@
-import React, { use } from "react";
-import { FaHome, FaSearch, FaShoppingBag } from "react-icons/fa";
-import { MdExitToApp } from "react-icons/md";
-import { MdVideoLibrary } from "react-icons/md";
-import { FaRegUserCircle } from "react-icons/fa";
+import React, { useContext } from "react";
+import { FaHome, FaUsers, FaRegUserCircle } from "react-icons/fa";
+import { MdExitToApp, MdVideoLibrary } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Link } from "react-router";
 import { AuthContext } from "../ContextApis/ContextProvider";
 import axios from "axios";
 
 const MobileNavbar = () => {
-  const { user, setUser } = use(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   // logout
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/auth/logout", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://reels-app-server-200.onrender.com/api/auth/logout",
+        {
+          withCredentials: true,
+        }
+      );
 
       if (res.data) {
-        setUser(null); //
+        setUser(null);
         toast.success("Logout successful");
         // navigate("/");
       }
@@ -37,9 +38,7 @@ const MobileNavbar = () => {
         >
           <FaHome size={24} />
         </Link>
-        {/* <button className="flex flex-col items-center text-gray-700 hover:text-black">
-          <FaSearch size={24} />
-        </button> */}
+
         <Link
           to="/reels/create-reel"
           className="flex flex-col items-center text-gray-700 hover:text-black"
@@ -47,11 +46,15 @@ const MobileNavbar = () => {
           <MdVideoLibrary size={24} />
         </Link>
 
-        {/* <button className="flex flex-col items-center text-gray-700 hover:text-black">
-          <FaShoppingBag size={24} />
-        </button> */}
         <Link
-          to={`/reels/profile/${user._id}`}
+          to="/reels/users"
+          className="flex flex-col items-center text-gray-700 hover:text-black"
+        >
+          <FaUsers size={24} />
+        </Link>
+
+        <Link
+          to={`/reels/profile/${user?._id}`}
           className="flex flex-col items-center text-gray-700 hover:text-black"
         >
           <FaRegUserCircle size={24} />

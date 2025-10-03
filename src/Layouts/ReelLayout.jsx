@@ -1,7 +1,7 @@
 import React, { use } from "react";
 import { Outlet } from "react-router";
 import { Link } from "react-router";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaUsers } from "react-icons/fa";
 import MobileNavbar from "../components/MobileNavbar";
 import { AuthContext } from "../ContextApis/ContextProvider";
 import Logout from "../components/Logout";
@@ -46,11 +46,12 @@ export default function ReelLayout() {
               >
                 Home
               </Link>
+
               <Link
-                to={`/reels/profile/${user._id}`}
+                to="/reels/users"
                 className="px-4 text-center py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
               >
-                Profile
+                Followers
               </Link>
               <Link
                 to="/reels/create-reel"
@@ -66,7 +67,7 @@ export default function ReelLayout() {
               </Link>
             </div>
 
-            <div className="p-4 md:hidden rounded-xl bg-white shadow-sm">
+            {/* <div className="p-4 md:hidden rounded-xl bg-white shadow-sm">
               <h4 className="text-sm font-medium text-gray-700">Create</h4>
               <p className="text-xs text-gray-500 mt-2">
                 Quick actions for new posts or reels.
@@ -85,7 +86,7 @@ export default function ReelLayout() {
                   Create Reel
                 </Link>
               </div>
-            </div>
+            </div> */}
 
             <div className="p-4 rounded-xl  bg-white shadow-sm flex items-center justify-center flex-col gap-3">
               <Logout />

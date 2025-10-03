@@ -13,7 +13,7 @@ function Comments() {
     queryKey: ["comments", reelId],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/comment/${reelId}`,
+        `https://reels-app-server-200.onrender.com/api/comment/${reelId}`,
         { withCredentials: true }
       );
       return Array.isArray(res.data) ? res.data : res.data.comments || [];
@@ -25,7 +25,7 @@ function Comments() {
   const commentMutation = useMutation({
     mutationFn: async ({ reelId, comment }) => {
       const res = await axios.post(
-        `http://localhost:5000/api/comment`,
+        `https://reels-app-server-200.onrender.com/api/comment`,
         { reelId, comment },
         { withCredentials: true }
       );

@@ -10,10 +10,13 @@ function ContextProvider({ children }) {
     const fetchAuthData = async () => {
       try {
         // ইউজারের ডেটা ফেচ
-        const resUser = await fetch("http://localhost:5000/api/auth/me", {
-          method: "GET",
-          credentials: "include",
-        });
+        const resUser = await fetch(
+          "https://reels-app-server-200.onrender.com/api/auth/me",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
 
         if (resUser.ok) {
           const data = await resUser.json();

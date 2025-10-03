@@ -54,7 +54,7 @@ export default function FoodPRegister() {
     try {
       setSubmitting(true);
       const res = await axios.post(
-        "http://localhost:5000/api/auth/food-partner/register",
+        "https://reels-app-server-200.onrender.com/api/auth/food-partner/register",
         {
           name: form.name.trim(),
           mobile: form.mobile.trim(),

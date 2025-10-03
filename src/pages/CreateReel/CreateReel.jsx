@@ -25,7 +25,7 @@ const CreateReel = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:5000/api/reel",
+        "https://reels-app-server-200.onrender.com/api/reel",
         formData,
         { withCredentials: true },
         {
@@ -98,7 +98,7 @@ const CreateReel = () => {
           <button
             type="submit"
             disabled={loading}
-            className="bg-teal-500 text-white py-3 rounded-lg font-semibold shadow hover:bg-teal-600 transition disabled:opacity-50"
+            className="bg-emerald-600 text-white py-3 rounded-lg font-semibold shadow hover:bg-emerald-700 transition disabled:opacity-50"
           >
             {loading ? "Uploading..." : "Submit"}
           </button>

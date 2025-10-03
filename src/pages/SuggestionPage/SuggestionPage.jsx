@@ -5,15 +5,18 @@ import { Link } from "react-router";
 
 // API calls
 const fetchSuggestions = async () => {
-  const res = await axios.get("http://localhost:5000/api/suggestionsusers", {
-    withCredentials: true,
-  });
+  const res = await axios.get(
+    "https://reels-app-server-200.onrender.com/api/suggestionsusers",
+    {
+      withCredentials: true,
+    }
+  );
   return res.data.users;
 };
 
 const followUser = async (targetId) => {
   const res = await axios.post(
-    `http://localhost:5000/api/follow/${targetId}`,
+    `https://reels-app-server-200.onrender.com/api/follow/${targetId}`,
     {},
     { withCredentials: true }
   );
@@ -22,7 +25,7 @@ const followUser = async (targetId) => {
 
 const unfollowUser = async (targetId) => {
   const res = await axios.post(
-    `http://localhost:5000/api/unfollow/${targetId}`,
+    `https://reels-app-server-200.onrender.com/api/unfollow/${targetId}`,
     {},
     { withCredentials: true }
   );
